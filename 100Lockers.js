@@ -6,9 +6,9 @@
 let numLockers = 15;
 let lockers1 = [];
 for (var i = 0; i < numLockers; i++) {
- 	lockers.push(i);
+ 	lockers1.push(i);
 }
-console.log(lockers);
+console.log(lockers1);
 
 function findChains(lockers) {
 	let chains = []; //Contains all loops
@@ -16,16 +16,21 @@ function findChains(lockers) {
 	let visited = []; //keeps track of nodes already visited by DFS
 	let ndx = 0;
 	let k = 0; //keeps track of number of unique loops (numloops = k + 1)
+
+	//Initialize Visited
+	for (var i = 0; i< lockers.length; i++) {
+		visited.push(0);
+	}
 	
 	for (var i = 0; i < numLockers; i++) {
 		// Already-Visited Case
-		if (visited[i] == i) {
+		if (visited[i]) {
 			continue; 
 		}
 
 		//Loop-Building Case
 		do {
-			visited[ndx] = ndx;
+			visited[ndx] = 1;
 			chain.push(lockers[ndx]);
 			ndx = lockers[ndx];
 		}
@@ -42,7 +47,7 @@ function findChains(lockers) {
 
 function analyze_Lockers() {
 	// Shuffling order of lockers
-	lockers = shuffle(lockers1);
+	lockers1 = shuffle(lockers1);
 	console.log(lockers1);
 
 	// Find Chains
