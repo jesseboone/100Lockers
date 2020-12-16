@@ -3,7 +3,7 @@
 // 100 Lockers Problem javascript analysis
 
 // Initializing lockers
-let numLockers = 15;
+let numLockers = 100;
 let lockers1 = [];
 for (var i = 0; i < numLockers; i++) {
  	lockers1.push(i);
@@ -55,6 +55,13 @@ function analyze_Lockers() {
 	console.log(chains);
 
 	// Decide victory if largest chain is <= search size
+	let lengths = [];
+	for (var i = chains.length - 1; i >= 0; i--) {
+		lengths.push(chains[i].length);
+	}
+	let maximum = max(lengths);
+	console.log(maximum);
+	if(maximum <= numLockers/2) print("Victory!");
 }
 
 function setup() {
