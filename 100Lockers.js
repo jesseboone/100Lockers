@@ -14,7 +14,6 @@ function findChains(lockers) {
 	let chains = []; //Contains all loops
 	let chain = []; //Used for one loop DFS
 	let visited = []; //keeps track of nodes already visited by DFS
-	let ndx = 0;
 	let k = 0; //keeps track of number of unique loops (numloops = k + 1)
 
 	//Initialize Visited
@@ -23,6 +22,7 @@ function findChains(lockers) {
 	}
 	
 	for (var i = 0; i < numLockers; i++) {
+		let ndx = i;
 		// Already-Visited Case
 		if (visited[i]) {
 			continue; 
@@ -37,10 +37,8 @@ function findChains(lockers) {
 		while (lockers[ndx] != chain[0])
 
 		// Loop-Completing Case 
-		chains[k] = chain;
-		chain = []; 
-		k++;
-		
+		chains.push(chain);
+		chain = [];
 	}
 	return chains;
 }
