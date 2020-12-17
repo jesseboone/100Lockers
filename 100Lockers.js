@@ -2,13 +2,20 @@
 // Ryan Brightwell
 // 100 Lockers Problem javascript analysis
 
+// Cycling option and settings
+let cycling = true;
+let cycles = 1000;
+
+// Record keeping
+let released = 0;
+let wins_losses = [0, 0];
+
 // Initializing lockers
 let numLockers = 100;
 let lockers1 = [];
 for (var i = 0; i < numLockers; i++) {
  	lockers1.push(i);
 }
-console.log(lockers1);
 
 function findChains(lockers) {
 	let chains = []; //Contains all loops
@@ -46,13 +53,13 @@ function findChains(lockers) {
 function analyze_Lockers() {
 	// Shuffling order of lockers
 	lockers1 = shuffle(lockers1);
-	console.log(lockers1);
+	// console.log(lockers1);
 
 	// Find Chains
 	chains = findChains(lockers1);
 
 	// Show chains
-	console.log(chains);
+	// console.log(chains);
 
 	// Decide victory if largest chain is <= search size
 	let lengths = [];
@@ -60,13 +67,22 @@ function analyze_Lockers() {
 		lengths.push(chains[i].length);
 	}
 	let maximum = max(lengths);
-	console.log(maximum);
-	if(maximum <= numLockers/2) print("Victory!");
+	// console.log(maximum);
+	if(maximum <= numLockers/2) {
+		// print("Victory!");
+		wins_losses[0]+=1;
+	}
+	else wins_losses[1]+=1;
 }
 
 function setup() {
 	createCanvas(600, 600);
-	analyze_Lockers();
+	if (cycling) {
+		for (var i = 0; i < cycles; i++) {
+			analyze_Lockers(lockers1);
+		}
+	}
+	console.log(wins_losses);
 }
 
 
