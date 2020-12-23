@@ -97,13 +97,6 @@ function draw() {
 	let w20 = w10/2;
   	let h10 = height / 10;
   	strokeWeight(2);
-
-  // Draw board
-  // line(w, 0, w, height);
-  // line(w * 2, 0, w * 2, height);
-  // line(0, h, width, h);
-  // line(0, h * 2, width, h * 2);
-
   
   for (let i = 0; i < 11; i++) {
   // draw horizontal lines -> line(x1,y1,x2,y2)
@@ -111,11 +104,13 @@ function draw() {
   // draw vertical lines
   	line(i*w10, 0, i*h10, height);
   }
+
+  // fills lockers with the text of numbers assigned to them
   textSize(32);
   textAlign(CENTER, TOP);
   for (let i=0; i<100; i++) {
   	text(lockers1[i],(i%10)*w10+w20,int(i/10)*h10+15);
   }
-  
+
   noLoop();
 }
