@@ -17,6 +17,18 @@ for (var i = 0; i < numLockers; i++) {
  	lockers1.push(i);
 }
 
+// colors used later
+let colors = [
+[0,0,255],
+[0,255,0],
+[255,0,0],
+[0,255,255],
+[255,0,255],
+[255,255,0],
+[255,255,255],
+[130,60,180]
+]
+
 function findChains(lockers) {
 	let chains = []; //Contains all loops
 	let chain = []; //Used for one loop DFS
@@ -59,7 +71,7 @@ function analyze_Lockers() {
 	chains = findChains(lockers1);
 
 	// Show chains
-	// console.log(chains);
+	console.log(chains);
 
 	// Decide victory if largest chain is <= search size
 	let lengths = [];
@@ -83,13 +95,29 @@ function setup() {
 		}
 	}
 	else analyze_Lockers(lockers1);
-	console.log(lockers1);
-	console.log(wins_losses);
+	// console.log(lockers1);
+	// console.log(wins_losses);
 }
 
+function drawChain(chain, R, G, B, w10, w20, h10) {
+	// let rand = random(3);
+	// if (rand == 0) R = 0;
+	// else if (rand == 1) B = 0;
+	// else G = 0;
+	let curr = 0;
+	let next = chain[0];
+	for (let i = chain.length-1; i >= 0; i--) {
+		let r = map(i, 0, chain.length-1, R, 230);
+		let g = map(i, 0, chain.length-1, B, 230);
+		let b = map(i, 0, chain.length-1, G, 230);
+		fill(r,g,b);
+		rect( (curr%10)*w10, int(curr/10)*h10, w10,h10 );
+		curr = next;
+		next = lockers1[curr];
+	}
+	// console.log(chain);
 
-
-
+}
 
 function draw() {
 	background(255);
@@ -105,12 +133,27 @@ function draw() {
   	line(i*w10, 0, i*h10, height);
   }
 
+  // color squares of the chains
+  for (let i = 0; i <= chains.length-1; i++) {
+  	// let R = map(i, 0, chains.length, 0, 255); let G = 255 - R; let B = R;
+  	// let R = random(255); let G = random(255); let B = random(255);
+  	let R = colors[i][0]; let G = colors[i][1]; let B = colors[i][2];
+  	// let R = 0; let G = 0; let B = 0;
+  	console.log(R,G,B);
+  	drawChain(chains[i],R,G,B,w10,w20,h10);
+  }
+
   // fills lockers with the text of numbers assigned to them
   textSize(32);
   textAlign(CENTER, TOP);
+  strokeWeight(2.5);
+  stroke(2);
+  fill(255);
   for (let i=0; i<100; i++) {
   	text(lockers1[i],(i%10)*w10+w20,int(i/10)*h10+15);
   }
+
+  
 
   noLoop();
 }
