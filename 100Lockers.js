@@ -9,6 +9,9 @@ let cycles = 1000;
 // Record keeping
 let released = 0;
 let wins_losses = [0, 0];
+let victory = false;
+let resultP;
+
 
 // Initializing lockers
 let numLockers = 100;
@@ -26,6 +29,13 @@ let colors = [
 [255,0,255],
 [255,255,0],
 [255,255,255],
+[0,0,128],
+[0,128,0],
+[128,0,0],
+[0,128,128],
+[128,0,128],
+[128,128,0],
+[128,128,128],
 [130,60,180]
 ]
 
@@ -81,7 +91,9 @@ function analyze_Lockers() {
 	let maximum = max(lengths);
 	// console.log(maximum);
 	if(maximum <= numLockers/2) {
-		// print("Victory!");
+		resultP = createP('');
+    	resultP.style('font-size', '32pt');
+    	victory = true;
 		wins_losses[0]+=1;
 	}
 	else wins_losses[1]+=1;
@@ -144,16 +156,15 @@ function draw() {
   }
 
   // fills lockers with the text of numbers assigned to them
-  textSize(32);
-  textAlign(CENTER, TOP);
-  strokeWeight(2.5);
-  stroke(2);
-  fill(255);
+  textSize(32); textAlign(CENTER, TOP); fill(255);
+  strokeWeight(2.5); stroke(2);
   for (let i=0; i<100; i++) {
   	text(lockers1[i],(i%10)*w10+w20,int(i/10)*h10+15);
   }
 
-  
+  if (victory) {
+	resultP.html(`Victory!`);
+  }
 
   noLoop();
 }
