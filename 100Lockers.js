@@ -6,6 +6,11 @@
 let cycling = false;
 let cycles = 1000;
 
+// ADD SLIDERS FOR:
+// NUMBER OF LOCKERS INCLUDED (could be tough, not always a square)
+// LENGTH OF ALLOWED CHAIN (easier)
+// ANYTHING ELSE?
+
 // Record keeping
 let released = 0;
 let wins_losses = [0, 0];
