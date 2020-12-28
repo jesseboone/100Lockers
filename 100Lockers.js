@@ -14,6 +14,7 @@ let cycles = 1000;
 // Record keeping
 let released = 0;
 let wins_losses = [0, 0];
+let maxes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 let victory = false;
 let resultP;
 
@@ -33,7 +34,6 @@ let colors = [
 [0,255,255],
 [255,0,255],
 [255,255,0],
-[255,255,255],
 [0,0,128],
 [0,128,0],
 [128,0,0],
@@ -102,6 +102,9 @@ function analyze_Lockers() {
 		wins_losses[0]+=1;
 	}
 	else wins_losses[1]+=1;
+
+	maxes[maximum]+=1;
+
 }
 
 function setup() {
@@ -114,20 +117,26 @@ function setup() {
 	else analyze_Lockers(lockers1);
 	// console.log(lockers1);
 	// console.log(wins_losses);
+	// console.log(maxes);
 }
 
-function drawChain(chain, R, G, B, w10, w20, h10) {
+function drawChain(chain, curr, R, G, B, w10, w20, h10) {
 	// let rand = random(3);
 	// if (rand == 0) R = 0;
 	// else if (rand == 1) B = 0;
 	// else G = 0;
-	let curr = 0;
+	console.log(chain);
+	console.log(R,G,B);
+	// let curr = 0;
 	let next = chain[0];
-	for (let i = chain.length-1; i >= 0; i--) {
-		let r = map(i, 0, chain.length-1, R, 230);
-		let g = map(i, 0, chain.length-1, B, 230);
-		let b = map(i, 0, chain.length-1, G, 230);
-		fill(r,g,b);
+	fill(R,G,B);
+	for (let i = 0; i < chain.length; i++) {
+		// This part needs to be fixed if we keep it like this, not sure why
+		// the start of every chain is white most of the time
+		// let r = map(i, chain.length-1, 0, 0, R);
+		// let g = map(i, chain.length-1, 0, 0, G);
+		// let b = map(i, chain.length-1, 0, 0, B);
+		// fill(r,g,b);
 		rect( (curr%10)*w10, int(curr/10)*h10, w10,h10 );
 		curr = next;
 		next = lockers1[curr];
@@ -151,13 +160,9 @@ function draw() {
   }
 
   // color squares of the chains
-  for (let i = 0; i <= chains.length-1; i++) {
-  	// let R = map(i, 0, chains.length, 0, 255); let G = 255 - R; let B = R;
-  	// let R = random(255); let G = random(255); let B = random(255);
+  for (let i = 0; i < chains.length; i++) {
   	let R = colors[i][0]; let G = colors[i][1]; let B = colors[i][2];
-  	// let R = 0; let G = 0; let B = 0;
-  	console.log(R,G,B);
-  	drawChain(chains[i],R,G,B,w10,w20,h10);
+  	drawChain(chains[i],i,R,G,B,w10,w20,h10);
   }
 
   // fills lockers with the text of numbers assigned to them
